@@ -1,0 +1,40 @@
+
+FastAPI + Redis Setup Instructions (Without Docker)
+====================================================
+
+1. Install Redis Server on Linux (Ubuntu/Debian)
+-------------------------------------------------
+Run the following commands in your Linux server:
+
+sudo apt update
+sudo apt install redis-server
+
+2. Start and Enable Redis Server
+--------------------------------
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+3. Verify Redis is Running
+--------------------------
+redis-cli ping
+# Expected output: PONG
+
+4. Install Redis Python Client (in your virtual environment)
+------------------------------------------------------------
+First, activate your Python virtual environment, then run:
+
+pip install redis
+
+This installs the `redis` module which allows Python/FastAPI to interact with the Redis server.
+
+Summary
+-------
+| Task                  | Where            | Command                            |
+|-----------------------|------------------|-------------------------------------|
+| Install Redis server  | Linux server     | sudo apt install redis-server      |
+| Start Redis           | Linux server     | sudo systemctl start redis-server  |
+| Python Redis client   | Virtual Env      | pip install redis                   |
+
+Note:
+-----
+You can also secure Redis with a password or configure custom ports as needed.
