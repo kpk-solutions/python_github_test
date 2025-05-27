@@ -1,0 +1,54 @@
+
+# Instructions to Run FastAPI with Redis (No Docker)
+
+## Step 1: Install Redis and Python Dependencies
+
+### On Ubuntu/Debian:
+sudo apt update
+sudo apt install redis-server -y
+
+### Start Redis Service
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+### Optional: Check Redis is running
+redis-cli ping
+
+### Install Python packages (in virtual environment if needed)
+pip install fastapi uvicorn redis
+
+## Step 2: Option 1 - Run Both in Separate Terminals
+
+### Terminal 1 (Redis)
+redis-server
+
+### Terminal 2 (FastAPI)
+uvicorn main:app --reload
+
+## Step 3: Option 2 - Run Both in Background
+
+redis-server --daemonize yes
+uvicorn main:app --reload
+
+### To Stop Redis:
+redis-cli shutdown
+
+## Step 4: Option 3 - Use Bash Script
+
+### Create a file run_all.sh with below content:
+
+#!/bin/bash
+echo "Starting Redis..."
+redis-server --daemonize yes
+echo "Starting FastAPI..."
+uvicorn main:app --reload
+
+### Make script executable:
+chmod +x run_all.sh
+
+### Run script:
+./run_all.sh
+
+## Notes:
+- Make sure `main.py` exists and has a FastAPI `app` defined.
+- Use `--host 0.0.0.0 --port 8000` if running on server and want external access.
